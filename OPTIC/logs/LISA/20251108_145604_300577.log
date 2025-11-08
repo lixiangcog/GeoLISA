@@ -1,0 +1,25 @@
+Source_Dataset: RIM_ONE_r3
+Target_Dataset: ['REFUGE', 'ORIGA', 'REFUGE_Valid', 'Drishti_GS']
+num_workers: 8
+image_size: 512
+backbone: resnet34
+in_ch: 3
+out_ch: 2
+optimizer: Adam
+lr: 0.05
+momentum: 0.99
+beta1: 0.9
+beta2: 0.99
+weight_decay: 0.0
+batch_size: 1
+iters: 1
+memory_size: 40
+neighbor: 16
+anchor_alpha: 0.01
+warm_n: 5
+path_save_log: /data/home/lixiang/LISA/OPTIC/logs/
+model_root: /data/home/lixiang/LISA/model
+dataset_root: /data/home/lixiang/LISA/data
+device: cuda:0
+The number of total parameters: 75
+************************************************************
