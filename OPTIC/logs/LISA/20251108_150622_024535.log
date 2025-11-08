@@ -154,9 +154,9 @@ weight_decay: 0.0
 batch_size: 1
 iters: 1
 warm_n: 5
-path_save_log: /data/home/lixiang/Med-LISA/OPTIC/logs/
-model_root: /data/home/lixiang/Med-LISA/model
-dataset_root: /data/home/lixiang/Med-LISA/data
+path_save_log: /data/home/anonymous/Med-LISA/OPTIC/logs/
+model_root: /data/home/anonymous/Med-LISA/model
+dataset_root: /data/home/anonymous/Med-LISA/data
 device: cuda:0
 ************************************************************
 Test Metrics:  {'Disc_Dice': np.float64(0.44483765379914075), 'Disc_ASD': np.float64(123.25442027628931), 'Cup_Dice': np.float64(0.00010045727444425307), 'Cup_ASD': np.float64(100.27804576209228)}

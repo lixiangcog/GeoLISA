@@ -27,7 +27,7 @@ config_dict = {
     "data_directory": sa_med16m_folders,
     "root_dir": "path/to/datafile_root",
     "random_seed": 000000,
-    "checkpoint_path": "/nvme_data/home/lixiang/ViTeUNet/sam_weights/sam_vit_h_4b8939.pth",
+    "checkpoint_path": "/nvme_data/home/anonymous/ViTeUNet/sam_weights/sam_vit_h_4b8939.pth",
     "img_size": 1024,
     "pixel_mean": [123.675, 116.28, 103.53],
     "pixel_std": [58.395, 57.12, 57.375],

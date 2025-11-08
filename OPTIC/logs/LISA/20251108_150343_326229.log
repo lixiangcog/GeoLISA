@@ -154,49 +154,49 @@ weight_decay: 0.0
 batch_size: 1
 iters: 1
 warm_n: 5
-path_save_log: /data/home/lixiang/LISA/OPTIC/logs/
-model_root: /data/home/lixiang/LISA/model
-dataset_root: /data/home/lixiang/LISA/data
+path_save_log: /data/home/anonymous/LISA/OPTIC/logs/
+model_root: /data/home/anonymous/LISA/model
+dataset_root: /data/home/anonymous/LISA/data
 device: cuda:0
 ************************************************************
 Traceback (most recent call last):
 
-  File "/data/home/lixiang/LISA/OPTIC/lisa.py", line 203, in <module>
+  File "/data/home/anonymous/LISA/OPTIC/lisa.py", line 203, in <module>
 
-  File "/data/home/lixiang/LISA/OPTIC/lisa.py", line 113, in run
+  File "/data/home/anonymous/LISA/OPTIC/lisa.py", line 113, in run
 
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/tqdm/std.py", line 1181, in __iter__
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/tqdm/std.py", line 1181, in __iter__
     for obj in iterable:
 
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 732, in __next__
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 732, in __next__
     data = self._next_data()
            ^^^^^^^^^^^^^^^^^
 
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1506, in _next_data
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1506, in _next_data
     return self._process_data(data, worker_id)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1541, in _process_data
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1541, in _process_data
     data.reraise()
 
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/_utils.py", line 769, in reraise
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/_utils.py", line 769, in reraise
     raise exception
 
 FileNotFoundError: Caught FileNotFoundError in DataLoader worker process 0.
 Original Traceback (most recent call last):
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
            ^^^^^^^^^^^^^^^^^^^^
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
     data = [self.dataset[idx] for idx in possibly_batched_index]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
     data = [self.dataset[idx] for idx in possibly_batched_index]
             ~~~~~~~~~~~~^^^^^
-  File "/data/home/lixiang/LISA/OPTIC/dataloaders/OPTIC_dataloader.py", line 33, in __getitem__
-  File "/data/home/lixiang/anaconda3/envs/onediff/lib/python3.11/site-packages/PIL/Image.py", line 3493, in open
+  File "/data/home/anonymous/LISA/OPTIC/dataloaders/OPTIC_dataloader.py", line 33, in __getitem__
+  File "/data/home/anonymous/anaconda3/envs/onediff/lib/python3.11/site-packages/PIL/Image.py", line 3493, in open
     fp = builtins.open(filename, "rb")
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/data/home/lixiang/LISA/data/REFUGE_Valid/image/T0119.png'
+FileNotFoundError: [Errno 2] No such file or directory: '/data/home/anonymous/LISA/data/REFUGE_Valid/image/T0119.png'
 
 

@@ -245,7 +245,7 @@ class VPTTA:
 
                 # # print(cam_dict)
 
-                # img_dir = '/home/lixiang/PLASTIC/OPTIC/image_vis'
+                # img_dir = '/home/anonymous/Med-LISA/OPTIC/image_vis'
                 # # img_name = 'collies.JPG'
                 # # img_name = 'multiple_dogs.jpg'
                 # # img_name = 'snake.JPEG'

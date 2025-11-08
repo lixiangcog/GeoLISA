@@ -16,9 +16,9 @@ weight_decay: 0.0
 batch_size: 1
 iters: 1
 warm_n: 5
-path_save_log: PLASTIC/OPTIC/logs/
-model_root: PLASTIC/models
-dataset_root: PLASTIC/data
+path_save_log: Med-LISA/OPTIC/logs/
+model_root: Med-LISA/models
+dataset_root: Med-LISA/data
 device: cuda:0
 ************************************************************
 Test Metrics:  {'Disc_Dice': np.float64(86.95513760670681), 'Disc_ASD': np.float64(17.93023931588544), 'Cup_Dice': np.float64(73.07624011275607), 'Cup_ASD': np.float64(15.620366324387913)}

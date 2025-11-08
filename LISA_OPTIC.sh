@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #Please modify the following roots to yours.
-dataset_root=/data/home/lixiang/Med-LISA/data
-model_root=/data/home/lixiang/Med-LISA/model
-path_save_log=/data/home/lixiang/Med-LISA/OPTIC/logs/
+dataset_root=/data/home/anonymous/Med-LISA/data
+model_root=/data/home/anonymous/Med-LISA/model
+path_save_log=/data/home/anonymous/Med-LISA/OPTIC/logs/
 
 #Dataset [RIM_ONE_r3, REFUGE, ORIGA, REFUGE_Valid, Drishti_GS]
 Source=RIM_ONE_r3
