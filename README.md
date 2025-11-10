@@ -38,13 +38,11 @@ evaluated using DICE.
 
 <h2 style="text-align: left;">📌 Updates</h2>
 
-**2025.11.08**: Upload the code for OD&OC segmentation. This is the first submission. After the article is accepted, the code will be sorted out and instructions will be added.
+**2025.11.10**: ✅ TODO — If the paper is accepted, we will further organize and refine the code, and release the additional datasets along with the corresponding model weights.
+
+**2025.11.08**: Upload the code for OD&OC segmentation.
 
 **2025.10.04**: Repository created.
-
-## ✅ TODO  
-- [ ] Release additional datasets and source-domain model code. 
-- [x] Code will be released soon. 
 
 
 ## 📖 Overview  
