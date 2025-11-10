@@ -98,7 +98,7 @@ The code and models are licensed under <a rel="license" href="./LICENSE">MIT Lic
 
 ## 🙌 Acknowledgement
 
-The code is inspired by [GraTa](https://github.com/Chen-Ziyang/GraTa), [VPTTA](https://github.com/Chen-Ziyang/VPTTA), [DLTTA](https://github.com/med-air/DLTTA), and [DomainAdaptor](https://github.com/koncle/DomainAdaptor).
+We gratefully acknowledge the contributions of the [VPTTA](https://github.com/Chen-Ziyang/VPTTA), [DLTTA](https://github.com/med-air/DLTTA), and [DomainAdaptor](https://github.com/koncle/DomainAdaptor) repositories. Our implementation is developed based on [VPTTA](https://github.com/Chen-Ziyang/VPTTA) as the baseline. In addition, we sincerely appreciate the broader open-source community for enabling this work.
 
 
 ## 🧩 Related Projects
