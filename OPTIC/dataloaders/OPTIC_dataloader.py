@@ -1,10 +1,9 @@
-import math
+import os
+
 from torch.utils import data
 import numpy as np
 from PIL import Image
-from batchgenerators.utilities.file_and_folder_operations import *
-from dataloaders.normalize import normalize_image, normalize_image_to_0_1
-import matplotlib.pyplot as plt
+from dataloaders.normalize import normalize_image_to_0_1
 
 
 class OPTIC_dataset(data.Dataset):
@@ -44,4 +43,3 @@ class OPTIC_dataset(data.Dataset):
         mask[label_npy < 255] = 1
         mask[label_npy == 0] = 2
         return img_npy, mask[np.newaxis], img_file
-

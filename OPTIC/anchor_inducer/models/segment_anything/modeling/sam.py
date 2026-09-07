@@ -12,7 +12,7 @@ from torch.nn import functional as F
 
 from .image_encoder import ImageEncoderViT
 from .mask_decoder import MaskDecoder
-from .anchor_encoder import anchorEncoder
+from .prompt_encoder import anchorEncoder
 
 
 class Sam(nn.Module):

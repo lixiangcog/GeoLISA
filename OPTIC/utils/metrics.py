@@ -421,8 +421,12 @@ def asd_compute(test, reference):
     disc_asds, cup_asds = [], []
 
     for batch in range(batch_size):
-        disc_asd, cup_asd = avg_surface_distance(test=test[batch][0], reference=reference[batch][0]), \
-                            avg_surface_distance(test=test[batch][1], reference=reference[batch][1])
+        disc_asd = avg_surface_distance_symmetric(
+            test=test[batch][0], reference=reference[batch][0]
+        )
+        cup_asd = avg_surface_distance_symmetric(
+            test=test[batch][1], reference=reference[batch][1]
+        )
         disc_asds.append(disc_asd)
         cup_asds.append(cup_asd)
     return disc_asds, cup_asds

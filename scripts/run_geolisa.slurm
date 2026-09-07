@@ -1,10 +1,18 @@
 #!/bin/bash
-# Local/interactive equivalent of scripts/run_geolisa.slurm.
+#SBATCH --job-name=geolisa-ctta
+#SBATCH --partition=4090
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=48G
+#SBATCH --time=24:00:00
+#SBATCH --output=logs/slurm-geolisa-%j.out
+
 set -euo pipefail
+: "${GEOLISA_ROOT:?Set GEOLISA_ROOT to the repository path}"
 : "${GEOLISA_ENV:?Set GEOLISA_ENV to the conda environment path}"
 : "${FUNDUS_ROOT:?Set FUNDUS_ROOT to the extracted Fundus directory}"
 
-GEOLISA_ROOT="$(cd "$(dirname "$0")" && pwd)"
+mkdir -p "${GEOLISA_ROOT}/logs" "${GEOLISA_ROOT}/results"
 cd "${GEOLISA_ROOT}/OPTIC"
 "${GEOLISA_ENV}/bin/python" lisa.py \
   --dataset-root "${FUNDUS_ROOT}" \

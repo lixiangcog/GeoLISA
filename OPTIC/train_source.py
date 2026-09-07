@@ -3,7 +3,6 @@ import torch
 import numpy as np
 import argparse, sys, datetime
 from config import *
-from torchnet import meter
 from networks.ResUnet import ResUnet
 from torch.utils.data import DataLoader
 from utils.metrics import calculate_metrics
@@ -11,6 +10,22 @@ from dataloaders.OPTIC_dataloader import OPTIC_dataset
 from dataloaders.convert_csv_to_list import convert_labeled_list
 from dataloaders.normalize import normalize_image, normalize_image_to_0_1
 from dataloaders.transform import collate_fn_wo_transform, collate_fn_w_transform
+
+
+class AverageMeter:
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.total = 0.0
+        self.count = 0
+
+    def add(self, value):
+        self.total += float(value)
+        self.count += 1
+
+    def value(self):
+        return (self.total / max(self.count, 1), 0.0)
 
 
 class TrainSource:
@@ -65,6 +80,7 @@ class TrainSource:
         # Training
         self.num_epochs = config.num_epochs
         self.batch_size = config.batch_size
+        self.report_training_metrics = config.report_training_metrics
 
         # GPU
         self.device = config.device
@@ -119,11 +135,12 @@ class TrainSource:
 
     def run(self):
         metrics_test = [[], [], [], []]
-        metric_dict = ['Disc_Dice', 'Disc_ASD', 'Cup_Dice', 'Cup_ASD']
+        metric_dict = ['Disc_Dice', 'Disc_ASSD', 'Cup_Dice', 'Cup_ASSD']
         best_loss, best_epoch = np.inf, 0
-        loss_meter = meter.AverageValueMeter()
+        loss_meter = AverageMeter()
 
         for epoch in range(self.num_epochs):
+            metrics_test = [[], [], [], []]
             self.model.train()
             print("Epoch:{}/{}".format(epoch + 1, self.num_epochs))
             print("Source Pretraining...")
@@ -144,21 +161,22 @@ class TrainSource:
                 self.optimizer.step()
 
                 loss_meter.add(loss.item())
-                seg_output = torch.sigmoid(pred)
-                metrics = calculate_metrics(seg_output.detach().cpu(), y.detach().cpu())
-                for i in range(len(metrics)):
-                    assert isinstance(metrics[i], list), "The metrics value is not list type."
-                    metrics_test[i] += metrics[i]
+                if self.report_training_metrics:
+                    seg_output = torch.sigmoid(pred)
+                    metrics = calculate_metrics(seg_output.detach().cpu(), y.detach().cpu())
+                    for i in range(len(metrics)):
+                        metrics_test[i] += metrics[i]
 
             if self.scheduler is not None:
                 self.scheduler.step()
 
             print("Train ———— Total Loss:{:.8f}".format(loss_meter.value()[0]))
-            metrics_y = np.mean(metrics_test, axis=1)
-            print_test_metric = {}
-            for i in range(len(metrics_y)):
-                print_test_metric[metric_dict[i]] = metrics_y[i]
-            print("Train Metrics Mean: ", print_test_metric)
+            if self.report_training_metrics:
+                metrics_y = np.mean(metrics_test, axis=1)
+                print_test_metric = {
+                    metric_dict[i]: metrics_y[i] for i in range(len(metrics_y))
+                }
+                print("Train Metrics Mean: ", print_test_metric)
             print('*****'*10)
 
             # Save Model
@@ -174,11 +192,11 @@ class TrainSource:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # Dataset
-    parser.add_argument('--Source_Dataset', type=str, default='RIM_ONE_r3',
+    parser.add_argument('--source-dataset', '--Source_Dataset', dest='Source_Dataset', type=str, default='RIM_ONE_r3',
                         help='RIM_ONE_r3/REFUGE/ORIGA/REFUGE_Valid/Drishti_GS')
 
-    parser.add_argument('--num_workers', type=int, default=8)
-    parser.add_argument('--image_size', type=int, default=512)
+    parser.add_argument('--num-workers', '--num_workers', dest='num_workers', type=int, default=8)
+    parser.add_argument('--image-size', '--image_size', dest='image_size', type=int, default=512)
 
     # Model
     parser.add_argument('--backbone', type=str, default='resnet34', help='resnet34/resnet50')
@@ -196,21 +214,30 @@ if __name__ == '__main__':
     parser.add_argument('--beta2', type=float, default=0.99)  # beta2 in Adam
 
     # Training
-    parser.add_argument('--num_epochs', type=int, default=200)
-    parser.add_argument('--batch_size', type=int, default=8)
+    parser.add_argument('--num-epochs', '--num_epochs', dest='num_epochs', type=int, default=200)
+    parser.add_argument('--batch-size', '--batch_size', dest='batch_size', type=int, default=8)
+    parser.add_argument('--report-training-metrics', action='store_true',
+                        help='compute slow per-batch Dice/ASSD diagnostics')
+    parser.add_argument('--seed', type=int, default=32)
 
     # Loss function
     parser.add_argument('--lossmap', type=str, default=['dice', 'bce'])
 
     # Path
-    parser.add_argument('--path_save_log', type=str, default='./logs/')
-    parser.add_argument('--path_save_model', type=str, default='./models/')
-    parser.add_argument('--dataset_root', type=str, default='/media/userdisk0/zychen/Datasets/Fundus')
+    parser.add_argument('--path-save-log', '--path_save_log', dest='path_save_log', type=str, default='./logs/')
+    parser.add_argument('--path-save-model', '--path_save_model', dest='path_save_model', type=str, default='./models/')
+    parser.add_argument('--dataset-root', '--dataset_root', dest='dataset_root', type=str, required=True)
 
     # Cuda (default: the first available device)
     parser.add_argument('--device', type=str, default='cuda:0')
 
     config = parser.parse_args()
+
+    np.random.seed(config.seed)
+    torch.manual_seed(config.seed)
+    torch.cuda.manual_seed_all(config.seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
     TS = TrainSource(config)
     TS.run()
