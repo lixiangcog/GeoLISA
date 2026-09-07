@@ -1,0 +1,9 @@
+name: geolisa
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      # Install torch/torchvision from the CUDA 12.4 index first; see README.
+      - -r requirements-runtime.txt

@@ -6,6 +6,6 @@
 
 from .image_encoder import ImageEncoderViT
 from .mask_decoder import MaskDecoder
-from .anchor_encoder import anchorEncoder
+from .prompt_encoder import anchorEncoder
 from .sam import Sam
 from .transformer import TwoWayTransformer

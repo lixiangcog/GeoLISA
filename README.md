@@ -1,111 +1,56 @@
-<div align="center">
-<div class="logo">
-   <a href="https://github.com/anonymous/Med-LISA">
-      <img src="assets/logo.png" style="width: 200px">
-   </a>
-</div>
-<h1>Med-LISA: Deploy-Time Medical Image Segmentation via Language-Induced Semantic Anchor</h1>
-💡 Med-LISA enables deploy-time continual medical image segmentation by generating language-induced semantic anchors that enhance structural robustness without accessing source data or modifying the source model.
+# GeoLISA
 
+GeoLISA is a continual test-time adaptation method for medical image
+segmentation. It combines language-induced semantic anchors with
+distribution-geometry feature alignment while keeping the source segmenter
+frozen during deployment.
 
-</div>
+The work is currently under submission. The repository currently provides the
+OD/OC segmentation implementation.
 
+## Installation
 
-> Note:
-> To maintain compliance with the double-blind review policy, certain components of the code (e.g., data paths, model checkpoints, scripts) have been intentionally removed or obfuscated.
-> These omissions do not affect the understanding of the method. A fully runnable version will be released after the review process.
-
-## 📊 Results  
-
-The performance of Med-LISA and competing methods on the OD/OC segmentation task under long-term CTTA,
-evaluated using DICE.
-
-<div class="logo">
-   <a href="https://github.com/anonymous/Med-LISA">
-      <img src="assets/cta_segmentation_performance_lisa.png" style="width: 1000px">
-   </a>
-</div>
-
-
-
-## ⭐ Key Highlights
-
-- **No source data required** – fully deploy-time adaptation.
-- **No backbone updates** – prevents catastrophic forgetting and ensures stable inference.
-- **Language-Induced Semantic Anchors** preserve anatomical structure under domain shift.
-- **Reliable pseudo-label refinement** suppresses noise and reduces error accumulation.
-- **Lightweight & real-time adaptation** — suitable for streaming clinical deployment scenarios.
-- **Consistent SOTA performance** across OD/OC, Polyp, and Prostate MRI segmentation tasks.
-
-
-
-<h2 style="text-align: left;">📌 Updates</h2>
-
-**2025.11.10**: ✅ TODO — If the paper is accepted, we will further organize and refine the code, and release the additional datasets along with the corresponding model weights.
-
-**2025.11.08**: Upload the code for OD&OC segmentation.
-
-**2025.10.04**: Repository created.
-
-
-## 📖 Overview  
-
-Compared with traditional approaches, our method Med-LISA effectively alleviates error accumulation and catastrophic forgetting during deployment, and demonstrates superior semantic robustness over existing solutions.
-
-<div class="logo">
-   <a href="https://github.com/anonymous/Med-LISA">
-      <img src="assets/intro.png" style="width: 1000px">
-   </a>
-</div>
-
-## 🛠️ Dependencies & Installation  
-
-### 1️⃣ Clone the Repository  
 ```bash
-git clone git@github.com:anonymous/Med-LISA.git
-cd Med-LISA
+conda create -n geolisa python=3.10 -y
+conda activate geolisa
+pip install torch==2.4.0 torchvision==0.19.0 \
+  --index-url https://download.pytorch.org/whl/cu124
+pip install -r requirements-runtime.txt
 ```
 
-### 2️⃣ Create Conda Environment & Install Dependencies  
-```bash
-conda create -n LISA python=3.8 -y  
-conda activate LISA
-pip3 install -r requirements.txt  
-```
+## Data
 
-## 🚀 Get Started  
+Download and extract the fundus dataset:
 
-### 📂 Dataset Preparation  
-
-- Download the OD and OC segmentation dataset using the following command:
 ```bash
 wget https://oneflow-static.oss-cn-beijing.aliyuncs.com/data_lx/Fundus.zip
+unzip Fundus.zip -d data/Fundus
 ```
 
-### ⚡ Quick Test 🏂  
+The data directory should contain the domain folders and CSV splits for
+RIM-ONE-r3, REFUGE, ORIGA, REFUGE-Valid, and Drishti-GS.
 
+## Usage
 
-- Run the following command to perform a quick inference:  
+Prepare the SAM ViT-B checkpoint and BioMedCLIP text embeddings under
+`models/`, then set the following paths:
+
 ```bash
+export GEOLISA_ENV=/absolute/path/to/geolisa/environment
+export FUNDUS_ROOT=/absolute/path/to/data/Fundus
 bash LISA_OPTIC.sh
 ```
 
-## 📜 Citation (TODO)
+Source training and continual adaptation can also be submitted with
+`scripts/train_source.slurm` and `scripts/run_geolisa.slurm`.
 
+## Acknowledgements
 
-## 📄 License  
-The code and models are licensed under <a rel="license" href="./LICENSE">MIT License</a>. 
+This implementation builds on
+[VPTTA](https://github.com/Chen-Ziyang/VPTTA),
+[Segment Anything](https://github.com/facebookresearch/segment-anything), and
+[BiomedCLIP](https://huggingface.co/microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224).
 
-## 📬 Contact (anonymous)
+## License
 
-
-## 🙌 Acknowledgement
-
-We gratefully acknowledge the contributions of the [VPTTA](https://github.com/Chen-Ziyang/VPTTA), [DLTTA](https://github.com/med-air/DLTTA), and [DomainAdaptor](https://github.com/koncle/DomainAdaptor) repositories. Our implementation is developed based on [VPTTA](https://github.com/Chen-Ziyang/VPTTA) as the baseline. In addition, we sincerely appreciate the broader open-source community for enabling this work.
-
-
-## 🧩 Related Projects
-
-- [LLaVA-Med](https://github.com/microsoft/LLaVA-Med)
-- [BiomedCLIP](https://huggingface.co/microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224)
-- [Instruction Tuning with GPT-4](https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM)
+This project is released under the [MIT License](LICENSE).

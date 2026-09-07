@@ -5,10 +5,6 @@ import os
 import torch.utils.model_zoo as model_zoo
 
 
-hub_dir = torch.hub.get_dir()
-model_dir = os.path.join(hub_dir, 'checkpoints')
-
-
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152']
 
@@ -182,7 +178,7 @@ def resnet18(pretrained=False, **kwargs):
     """
     model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load(os.path.join(model_dir, 'resnet18-5c106cde.pth')), strict=False)
+        model.load_state_dict(model_zoo.load_url(model_urls['resnet18']), strict=False)
     return model
 
 
@@ -194,7 +190,7 @@ def resnet34(pretrained=False, **kwargs):
     """
     model = ResNet(BasicBlock, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load(os.path.join(model_dir, 'resnet34-333f7ec4.pth')), strict=False)
+        model.load_state_dict(model_zoo.load_url(model_urls['resnet34']), strict=False)
     return model
 
 
@@ -206,7 +202,7 @@ def resnet50(pretrained=False, **kwargs):
     """
     model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load(os.path.join(model_dir, 'resnet50-19c8e357.pth')), strict=False)
+        model.load_state_dict(model_zoo.load_url(model_urls['resnet50']), strict=False)
     return model
 
 
