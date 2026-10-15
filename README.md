@@ -50,7 +50,3 @@ This implementation builds on
 [VPTTA](https://github.com/Chen-Ziyang/VPTTA),
 [Segment Anything](https://github.com/facebookresearch/segment-anything), and
 [BiomedCLIP](https://huggingface.co/microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224).
-
-## License
-
-This project is released under the [MIT License](LICENSE).
